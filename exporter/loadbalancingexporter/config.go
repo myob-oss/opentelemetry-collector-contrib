@@ -43,6 +43,7 @@ type Protocol struct {
 type ResolverSettings struct {
 	Static *StaticResolver `mapstructure:"static"`
 	DNS    *DNSResolver    `mapstructure:"dns"`
+	AWS    *AWSResolver    `mapstructure:"aws"`
 }
 
 // StaticResolver defines the configuration for the resolver providing a fixed list of backends
@@ -56,4 +57,10 @@ type DNSResolver struct {
 	Port     string        `mapstructure:"port"`
 	Interval time.Duration `mapstructure:"interval"`
 	Timeout  time.Duration `mapstructure:"timeout"`
+}
+
+type AWSResolver struct {
+	ServiceName string        `mapstructure:"service_name"`
+	Interval    time.Duration `mapstructure:"interval"`
+	Timeout     time.Duration `mapstructure:"timeout"`
 }
