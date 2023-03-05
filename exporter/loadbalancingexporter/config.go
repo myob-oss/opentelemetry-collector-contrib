@@ -1,5 +1,16 @@
 // Copyright The OpenTelemetry Authors
-// SPDX-License-Identifier: Apache-2.0
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 
@@ -32,6 +43,7 @@ type Protocol struct {
 type ResolverSettings struct {
 	Static *StaticResolver `mapstructure:"static"`
 	DNS    *DNSResolver    `mapstructure:"dns"`
+	AWS    *AWSResolver    `mapstructure:"aws"`
 }
 
 // StaticResolver defines the configuration for the resolver providing a fixed list of backends
@@ -45,4 +57,10 @@ type DNSResolver struct {
 	Port     string        `mapstructure:"port"`
 	Interval time.Duration `mapstructure:"interval"`
 	Timeout  time.Duration `mapstructure:"timeout"`
+}
+
+type AWSResolver struct {
+	ServiceName string        `mapstructure:"service_name"`
+	Interval    time.Duration `mapstructure:"interval"`
+	Timeout     time.Duration `mapstructure:"timeout"`
 }

@@ -1,5 +1,16 @@
 // Copyright The OpenTelemetry Authors
-// SPDX-License-Identifier: Apache-2.0
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 
@@ -69,6 +80,19 @@ func newLoadBalancer(params exporter.CreateSettings, cfg component.Config, facto
 
 		var err error
 		res, err = newDNSResolver(dnsLogger, oCfg.Resolver.DNS.Hostname, oCfg.Resolver.DNS.Port, oCfg.Resolver.DNS.Interval, oCfg.Resolver.DNS.Timeout)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if oCfg.Resolver.AWS != nil {
+		var err error
+		res, err = newAWSResolver(
+			params.Logger.With(zap.String("resolver", "aws")),
+			oCfg.Resolver.AWS.ServiceName,
+			oCfg.Resolver.AWS.Interval,
+			oCfg.Resolver.AWS.Timeout,
+		)
 		if err != nil {
 			return nil, err
 		}
