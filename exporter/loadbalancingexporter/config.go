@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
+package loadbalancingexporter // import "github.com/myob-oss/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 
 import (
 	"time"
@@ -35,6 +35,7 @@ type ResolverSettings struct {
 	Static *StaticResolver `mapstructure:"static"`
 	DNS    *DNSResolver    `mapstructure:"dns"`
 	K8sSvc *K8sSvcResolver `mapstructure:"k8s"`
+	AWS    *AWSResolver    `mapstructure:"aws"`
 }
 
 // StaticResolver defines the configuration for the resolver providing a fixed list of backends
@@ -54,4 +55,9 @@ type DNSResolver struct {
 type K8sSvcResolver struct {
 	Service string  `mapstructure:"service"`
 	Ports   []int32 `mapstructure:"ports"`
+}
+type AWSResolver struct {
+	ServiceName string        `mapstructure:"service_name"`
+	Interval    time.Duration `mapstructure:"interval"`
+	Timeout     time.Duration `mapstructure:"timeout"`
 }

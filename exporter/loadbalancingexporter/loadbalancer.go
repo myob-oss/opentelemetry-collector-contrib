@@ -86,6 +86,19 @@ func newLoadBalancer(params exporter.CreateSettings, cfg component.Config, facto
 		}
 	}
 
+	if oCfg.Resolver.AWS != nil {
+		var err error
+		res, err = newAWSResolver(
+			params.Logger.With(zap.String("resolver", "aws")),
+			oCfg.Resolver.AWS.ServiceName,
+			oCfg.Resolver.AWS.Interval,
+			oCfg.Resolver.AWS.Timeout,
+		)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	if res == nil {
 		return nil, errNoResolver
 	}

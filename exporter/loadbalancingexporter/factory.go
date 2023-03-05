@@ -3,7 +3,7 @@
 
 //go:generate mdatagen metadata.yaml
 
-package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
+package loadbalancingexporter // import "github.com/myob-oss/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/otlpexporter"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter/internal/metadata"
+	"github.com/myob-oss/opentelemetry-collector-contrib/exporter/loadbalancingexporter/internal/metadata"
 )
 
 // NewFactory creates a factory for the exporter.
